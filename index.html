@@ -56,8 +56,8 @@
 
 <div id="eh-form-wrapper">
   <div class="page-intro">
-    <h1>A seder worth remembering.</h1>
-    <p>Tell us about your table. We respond within 48 hours</p>
+    <h1>Kosher catering, crafted with intention.</h1>
+    <p>Tell us about your event. We respond within 48 hours</p>
   </div>
 
   <form id="eh-intake-form" novalidate>
@@ -315,6 +315,7 @@
     e.preventDefault();
     var data = {
       timestamp: new Date().toISOString(),
+      source: 'kosher',
       name: document.getElementById('eh-name').value,
       email: document.getElementById('eh-email').value,
       phone: document.getElementById('eh-phone').value,
