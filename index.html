@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Your Seder — Essential Herbs</title>
+  <style>
+    html, body { background: transparent; margin: 0; padding: 0; }
+    body { max-width: 680px; margin: 0 auto; padding: 1rem 0 5rem; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: transparent; --text: #1a1a1a; --muted: #888; --border: #c8c4bc;
+      --font: 'Times New Roman', Times, serif; --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .page-intro { margin-bottom: 2.4rem; }
+    .page-intro h1 { font-family: var(--font); font-size: 2rem; font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 0.7rem; }
+    .page-intro p { font-family: var(--sans); font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .eh-section { display: none; animation: ehFadeIn 0.3s ease; }
+    .eh-section.active { display: block; }
+    @keyframes ehFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .section-label { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.4rem; }
+    .eh-field { margin-bottom: 1.4rem; }
+    .eh-field label { display: block; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text); font-weight: 700; margin-bottom: 0.35rem; }
+    .eh-field input[type="text"], .eh-field input[type="email"], .eh-field input[type="tel"],
+    .eh-field input[type="date"], .eh-field input[type="number"], .eh-field textarea {
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border);
+      padding: 0.35rem 0; font-family: var(--font); font-size: 1.05rem; color: var(--text);
+      outline: none; transition: border-color 0.2s; border-radius: 0; -webkit-appearance: none;
+    }
+    .eh-field input:focus, .eh-field textarea:focus { border-bottom-color: var(--text); }
+    .eh-field textarea { resize: none; min-height: 70px; line-height: 1.6; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.3rem; }
+    .eh-pill input[type="radio"], .eh-pill input[type="checkbox"] { display: none; }
+    .eh-pill label { display: inline-block; padding: 0.4rem 1rem; border: 1px solid var(--border); font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.15s, color 0.15s; margin: 0; color: var(--muted); }
+    .eh-pill input:checked + label { background: #1a1a1a; color: #ffffff; border-color: #1a1a1a; }
+    .eh-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 2.1rem; }
+    .eh-btn-next, .eh-btn-submit { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; background: #1a1a1a; color: #ffffff; border: none; padding: 0.85rem 2rem; cursor: pointer; transition: opacity 0.15s; }
+    .eh-btn-next:hover, .eh-btn-submit:hover { opacity: 0.75; }
+    .eh-btn-back { font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; }
+    .eh-btn-back:hover { color: var(--text); }
+    .eh-progress { display: flex; gap: 0.3rem; margin-bottom: 2.1rem; }
+    .eh-dot { width: 20px; height: 2px; background: var(--border); transition: background 0.2s; }
+    .eh-dot.done { background: var(--text); }
+    #eh-thankyou { display: none; text-align: center; padding: 3rem 0; }
+    #eh-thankyou h2 { font-family: var(--font); font-size: 2rem; font-weight: 400; font-style: italic; margin-bottom: 1rem; }
+    #eh-thankyou p { font-family: var(--sans); font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .eh-field-error input, .eh-field-error textarea { border-bottom-color: #c0392b; }
+    .eh-error-msg { font-family: var(--sans); font-size: 0.67rem; color: #c0392b; letter-spacing: 0.04em; margin-top: 0.35rem; display: none; }
+    .eh-field-error .eh-error-msg { display: block; }
+    .two-col { display: flex; gap: 1.5rem; }
+    .two-col .eh-field { flex: 1; }
+    .kosher-note { font-family: var(--sans); font-size: 0.72rem; color: var(--muted); line-height: 1.6; padding: 0.8rem 1rem; border: 1px solid var(--border); margin-bottom: 1.4rem; }
+  </style>
+</head>
+<body>
+
+<div id="eh-form-wrapper">
+  <div class="page-intro">
+    <h1>A seder worth remembering.</h1>
+    <p>Tell us about your table. We respond within 48 hours</p>
+  </div>
+
+  <form id="eh-intake-form" novalidate>
+    <div class="eh-progress" id="eh-progress">
+      <div class="eh-dot done" id="eh-dot-0"></div>
+      <div class="eh-dot" id="eh-dot-1"></div>
+      <div class="eh-dot" id="eh-dot-2"></div>
+      <div class="eh-dot" id="eh-dot-3"></div>
+    </div>
+
+    <!-- SECTION 1: You -->
+    <div class="eh-section active" id="eh-section-0">
+      <p class="section-label">01 / 04 — you</p>
+      <div class="eh-field">
+        <label for="eh-name">Your Name *</label>
+        <input type="text" id="eh-name" name="name" placeholder="Full name" />
+        <span class="eh-error-msg">This field is required.</span>
+      </div>
+      <div class="eh-field">
+        <label for="eh-email">Email *</label>
+        <input type="email" id="eh-email" name="email" placeholder="your@email.com" />
+        <span class="eh-error-msg">Please enter a valid email.</span>
+      </div>
+      <div class="eh-field">
+        <label for="eh-phone">Phone</label>
+        <input type="tel" id="eh-phone" name="phone" placeholder="(212) 555-0100" />
+      </div>
+      <div class="eh-field">
+        <label>Type of Client</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="radio" name="client_type" id="ct1" value="Private Home"><label for="ct1">Private Home</label></span>
+          <span class="eh-pill"><input type="radio" name="client_type" id="ct2" value="Synagogue"><label for="ct2">Synagogue</label></span>
+          <span class="eh-pill"><input type="radio" name="client_type" id="ct3" value="Corporate / Organization"><label for="ct3">Corporate / Org</label></span>
+          <span class="eh-pill"><input type="radio" name="client_type" id="ct4" value="Hotel / Venue"><label for="ct4">Hotel / Venue</label></span>
+          <span class="eh-pill"><input type="radio" name="client_type" id="ct5" value="Other"><label for="ct5">Other</label></span>
+        </div>
+      </div>
+      <div class="eh-actions">
+        <span></span>
+        <button type="button" class="eh-btn-next" id="eh-next-0">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 2: The Event -->
+    <div class="eh-section" id="eh-section-1">
+      <p class="section-label">02 / 04 — the event</p>
+      <div class="eh-field">
+        <label>Which nights?</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="checkbox" name="seder_nights" id="sn1" value="First Night Seder"><label for="sn1">First Night</label></span>
+          <span class="eh-pill"><input type="checkbox" name="seder_nights" id="sn2" value="Second Night Seder"><label for="sn2">Second Night</label></span>
+          <span class="eh-pill"><input type="checkbox" name="seder_nights" id="sn3" value="Both Nights"><label for="sn3">Both Nights</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label>What else are we catering?</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="checkbox" name="event_type" id="et1" value="Full 8-Day Passover Meals"><label for="et1">Full 8-Day Meals</label></span>
+          <span class="eh-pill"><input type="checkbox" name="event_type" id="et2" value="Break-Fast"><label for="et2">Break-Fast</label></span>
+          <span class="eh-pill"><input type="checkbox" name="event_type" id="et3" value="Shabbat Dinner"><label for="et3">Shabbat Dinner</label></span>
+          <span class="eh-pill"><input type="checkbox" name="event_type" id="et4" value="Yom Tov Lunch"><label for="et4">Yom Tov Lunch</label></span>
+          <span class="eh-pill"><input type="checkbox" name="event_type" id="et5" value="Seder Only"><label for="et5">Seder Only</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label for="eh-event-date">Date of First Seder</label>
+        <input type="date" id="eh-event-date" name="event_date" />
+      </div>
+      <div class="eh-field">
+        <label for="eh-venue">Location / Venue</label>
+        <input type="text" id="eh-venue" name="venue" placeholder="Address or venue name" />
+      </div>
+      <div class="eh-field">
+        <label for="eh-guest-count">Guest Count *</label>
+        <input type="number" id="eh-guest-count" name="guest_count" placeholder="e.g. 30" min="1" />
+        <span class="eh-error-msg">Please enter a guest count.</span>
+      </div>
+      <div class="eh-actions">
+        <button type="button" class="eh-btn-back" id="eh-back-1">← Back</button>
+        <button type="button" class="eh-btn-next" id="eh-next-1">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Food & Kosher -->
+    <div class="eh-section" id="eh-section-2">
+      <p class="section-label">03 / 04 — food &amp; kosher</p>
+      <div class="kosher-note">All Essential Herbs Passover menus are prepared with full chametz removal protocols. We work with your mashgiach or can connect you with a certified supervisor.</div>
+      <div class="eh-field">
+        <label>Kosher Certification Required?</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="radio" name="kosher_cert" id="kc1" value="Yes — full supervision required"><label for="kc1">Yes — Full Supervision</label></span>
+          <span class="eh-pill"><input type="radio" name="kosher_cert" id="kc2" value="Yes — mashgiach tmidi"><label for="kc2">Mashgiach Tmidi</label></span>
+          <span class="eh-pill"><input type="radio" name="kosher_cert" id="kc3" value="Kosher-style (no supervision)"><label for="kc3">Kosher-Style</label></span>
+          <span class="eh-pill"><input type="radio" name="kosher_cert" id="kc4" value="Not sure — let's discuss"><label for="kc4">Let's Discuss</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label>Ashkenazi, Sephardic, or Mixed?</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="radio" name="tradition" id="tr1" value="Ashkenazi"><label for="tr1">Ashkenazi</label></span>
+          <span class="eh-pill"><input type="radio" name="tradition" id="tr2" value="Sephardic"><label for="tr2">Sephardic</label></span>
+          <span class="eh-pill"><input type="radio" name="tradition" id="tr3" value="Mixed"><label for="tr3">Mixed</label></span>
+          <span class="eh-pill"><input type="radio" name="tradition" id="tr4" value="No preference"><label for="tr4">No Preference</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label>Service Style</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="checkbox" name="service_style" id="ss1" value="Plated Seder Dinner"><label for="ss1">Plated Dinner</label></span>
+          <span class="eh-pill"><input type="checkbox" name="service_style" id="ss2" value="Family Style"><label for="ss2">Family Style</label></span>
+          <span class="eh-pill"><input type="checkbox" name="service_style" id="ss3" value="Buffet"><label for="ss3">Buffet</label></span>
+          <span class="eh-pill"><input type="checkbox" name="service_style" id="ss4" value="Grazing / Mezze"><label for="ss4">Grazing / Mezze</label></span>
+          <span class="eh-pill"><input type="checkbox" name="service_style" id="ss5" value="Not Sure"><label for="ss5">Not Sure</label></span>
+        </div>
+        <span class="eh-error-msg" id="eh-style-error">Please select at least one.</span>
+      </div>
+      <div class="eh-field">
+        <label for="eh-food-notes">Cuisine Direction / Family Traditions</label>
+        <textarea id="eh-food-notes" name="food_notes" placeholder="Traditional brisket and matzo ball soup, modern Israeli, North African influence... tell us what matters to your family."></textarea>
+      </div>
+      <div class="eh-field">
+        <label>Seder Plate — Who Provides?</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="radio" name="seder_plate" id="sp1" value="EH to provide"><label for="sp1">EH to Provide</label></span>
+          <span class="eh-pill"><input type="radio" name="seder_plate" id="sp2" value="Client providing"><label for="sp2">Client Providing</label></span>
+          <span class="eh-pill"><input type="radio" name="seder_plate" id="sp3" value="Let's discuss"><label for="sp3">Let's Discuss</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label>Dietary Restrictions <span style="font-size:0.65rem;text-transform:none;color:var(--muted);">(beyond Passover)</span></label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="checkbox" name="dietary" id="d1" value="Vegetarian"><label for="d1">Vegetarian</label></span>
+          <span class="eh-pill"><input type="checkbox" name="dietary" id="d2" value="Vegan"><label for="d2">Vegan</label></span>
+          <span class="eh-pill"><input type="checkbox" name="dietary" id="d3" value="Gluten-Free"><label for="d3">Gluten-Free</label></span>
+          <span class="eh-pill"><input type="checkbox" name="dietary" id="d4" value="Nut Allergy"><label for="d4">Nut Allergy</label></span>
+          <span class="eh-pill"><input type="checkbox" name="dietary" id="d5" value="Dairy-Free"><label for="d5">Dairy-Free</label></span>
+          <span class="eh-pill"><input type="checkbox" name="dietary" id="d6" value="No Kitniyot"><label for="d6">No Kitniyot</label></span>
+        </div>
+        <input type="text" name="dietary_other" placeholder="Other — please specify" style="margin-top:0.9rem;width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);padding:0.35rem 0;font-family:var(--font);font-size:1.05rem;outline:none;" />
+      </div>
+      <div class="eh-field">
+        <label>Beverage Program</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="checkbox" name="beverage" id="bev1" value="Kosher wine selection"><label for="bev1">Kosher Wine</label></span>
+          <span class="eh-pill"><input type="checkbox" name="beverage" id="bev2" value="Four cups program"><label for="bev2">Four Cups Program</label></span>
+          <span class="eh-pill"><input type="checkbox" name="beverage" id="bev3" value="Full bar (kosher)"><label for="bev3">Full Bar (Kosher)</label></span>
+          <span class="eh-pill"><input type="checkbox" name="beverage" id="bev4" value="Client providing"><label for="bev4">Client Providing</label></span>
+        </div>
+      </div>
+      <div class="eh-actions">
+        <button type="button" class="eh-btn-back" id="eh-back-2">← Back</button>
+        <button type="button" class="eh-btn-next" id="eh-next-2">Continue →</button>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Budget & Details -->
+    <div class="eh-section" id="eh-section-3">
+      <p class="section-label">04 / 04 — budget &amp; details</p>
+      <div class="eh-field">
+        <label>Catering Budget (before tax &amp; gratuity)</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="radio" name="budget" id="b1" value="Under $5,000"><label for="b1">Under $5K</label></span>
+          <span class="eh-pill"><input type="radio" name="budget" id="b2" value="$5,000–$15,000"><label for="b2">$5K–$15K</label></span>
+          <span class="eh-pill"><input type="radio" name="budget" id="b3" value="$15,000–$30,000"><label for="b3">$15K–$30K</label></span>
+          <span class="eh-pill"><input type="radio" name="budget" id="b4" value="$30,000+"><label for="b4">$30K+</label></span>
+          <span class="eh-pill"><input type="radio" name="budget" id="b5" value="Not sure yet"><label for="b5">Not Sure</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label>How soon do you need a response?</label>
+        <div class="pill-group">
+          <span class="eh-pill"><input type="radio" name="timeline" id="t1" value="Within 24 hours"><label for="t1">Within 24 hrs</label></span>
+          <span class="eh-pill"><input type="radio" name="timeline" id="t2" value="Within a week"><label for="t2">Within a week</label></span>
+          <span class="eh-pill"><input type="radio" name="timeline" id="t3" value="No rush"><label for="t3">No rush</label></span>
+        </div>
+      </div>
+      <div class="eh-field">
+        <label for="eh-referral">How did you hear about us?</label>
+        <input type="text" id="eh-referral" name="referral" placeholder="Referral, Instagram, synagogue, etc." />
+      </div>
+      <div class="eh-field">
+        <label for="eh-notes">Anything else — family traditions, special requests, logistics?</label>
+        <textarea id="eh-notes" name="notes" placeholder="The more we know, the better we can serve your table."></textarea>
+      </div>
+      <div class="eh-actions">
+        <button type="button" class="eh-btn-back" id="eh-back-3">← Back</button>
+        <button type="submit" class="eh-btn-submit">Submit Inquiry</button>
+      </div>
+    </div>
+
+  </form>
+
+  <div id="eh-thankyou">
+    <h2>Thank you.</h2>
+    <p>We'll be in touch within 48 hours.<br/>For an immediate response: <a href="mailto:hello@essentialherbs.com" style="color:inherit;">hello@essentialherbs.com</a></p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwlPOUbKUAQV4iem39Ow_5Qe8CzmdbquoBwmAGy5fsRzqZqutTzPk50RMNZFDKPqG4JPA/exec';
+  var current = 0;
+
+  function goTo(n) {
+    if (n > current && !validate(current)) return;
+    document.getElementById('eh-section-' + current).classList.remove('active');
+    document.getElementById('eh-dot-' + current).classList.remove('done');
+    current = n;
+    document.getElementById('eh-section-' + current).classList.add('active');
+    for (var i = 0; i <= current; i++) document.getElementById('eh-dot-' + i).classList.add('done');
+    var intro = document.querySelector('.page-intro');
+    if (intro) intro.style.display = n > 0 ? 'none' : 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validate(s) {
+    if (s === 0) {
+      var ok = true;
+      var n = document.getElementById('eh-name');
+      var em = document.getElementById('eh-email');
+      if (!n.value.trim()) { n.closest('.eh-field').classList.add('eh-field-error'); ok = false; }
+      else { n.closest('.eh-field').classList.remove('eh-field-error'); }
+      if (!em.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) {
+        em.closest('.eh-field').classList.add('eh-field-error'); ok = false;
+      } else { em.closest('.eh-field').classList.remove('eh-field-error'); }
+      return ok;
+    }
+    if (s === 1) {
+      var g = document.getElementById('eh-guest-count');
+      if (!g.value.trim()) { g.closest('.eh-field').classList.add('eh-field-error'); return false; }
+      g.closest('.eh-field').classList.remove('eh-field-error');
+      return true;
+    }
+    if (s === 2) {
+      var checked = document.querySelectorAll('input[name="service_style"]:checked');
+      var err = document.getElementById('eh-style-error');
+      if (checked.length === 0) { err.style.display = 'block'; return false; }
+      err.style.display = 'none'; return true;
+    }
+    return true;
+  }
+
+  function getMultiVal(name) {
+    var vals = [];
+    document.querySelectorAll('input[name="' + name + '"]:checked').forEach(function(el) { vals.push(el.value); });
+    return vals.join(', ');
+  }
+
+  function getSingleVal(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    var data = {
+      timestamp: new Date().toISOString(),
+      name: document.getElementById('eh-name').value,
+      email: document.getElementById('eh-email').value,
+      phone: document.getElementById('eh-phone').value,
+      event_type: 'Passover / Seder — ' + getMultiVal('seder_nights') + ' | ' + getMultiVal('event_type'),
+      client_type: getSingleVal('client_type'),
+      event_date: document.getElementById('eh-event-date').value,
+      venue: document.getElementById('eh-venue').value,
+      guest_count: document.getElementById('eh-guest-count').value,
+      kosher_cert: getSingleVal('kosher_cert'),
+      tradition: getSingleVal('tradition'),
+      service_style: getMultiVal('service_style'),
+      food_notes: document.getElementById('eh-food-notes').value,
+      seder_plate: getSingleVal('seder_plate'),
+      dietary: getMultiVal('dietary'),
+      dietary_other: document.querySelector('input[name="dietary_other"]').value,
+      beverage: getMultiVal('beverage'),
+      budget: getSingleVal('budget'),
+      timeline: getSingleVal('timeline'),
+      referral: document.getElementById('eh-referral').value,
+      notes: document.getElementById('eh-notes').value,
+      venue_help: '',
+      beverage_budget: '',
+      other_services: ''
+    };
+
+    var params = Object.keys(data).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+    }).join('&');
+    var img = new Image();
+    img.src = SHEET_URL + '?' + params;
+
+    document.getElementById('eh-intake-form').style.display = 'none';
+    document.querySelector('.page-intro').style.display = 'none';
+    document.getElementById('eh-thankyou').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  var ehInited = false;
+  function init() {
+    if (ehInited) return;
+    var n0 = document.getElementById('eh-next-0');
+    var form = document.getElementById('eh-intake-form');
+    if (!n0 || !form) { setTimeout(init, 100); return; }
+    ehInited = true;
+    document.getElementById('eh-next-0').addEventListener('click', function() { goTo(1); });
+    document.getElementById('eh-next-1').addEventListener('click', function() { goTo(2); });
+    document.getElementById('eh-next-2').addEventListener('click', function() { goTo(3); });
+    document.getElementById('eh-back-1').addEventListener('click', function() { goTo(0); });
+    document.getElementById('eh-back-2').addEventListener('click', function() { goTo(1); });
+    document.getElementById('eh-back-3').addEventListener('click', function() { goTo(2); });
+    form.addEventListener('submit', submitForm);
+  }
+
+  init();
+  setTimeout(init, 100);
+  setTimeout(init, 500);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('load', init);
+})();
+</script>
+
+</body>
+</html>
